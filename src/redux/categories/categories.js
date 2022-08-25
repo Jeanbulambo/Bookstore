@@ -1,4 +1,4 @@
-export const CHECK_STATUS = 'bookstore/category/CHECK-CAT';
+export const CHECK_STATUS = 'bookstore/categories/CHECK_STATUS';
 
 export const checkStatus = () => (
   {
@@ -6,10 +6,10 @@ export const checkStatus = () => (
   }
 );
 const initState = [];
-const CategoryReducer = (state = initState, action) => {
+const CategoryReducer = (state = initState, action = {}) => {
   switch (action.type) {
     case CHECK_STATUS:
-      return action.payload;
+      return 'under construction';
     default: return state;
   }
 };

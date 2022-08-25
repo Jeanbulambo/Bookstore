@@ -1,0 +1,35 @@
+.books-buttons {
+  display: flex;
+  gap: 24px;
+  padding: 12px;
+}
+
+.Comments {
+  width: 90px;
+}
+
+.Remove {
+  width: 90px;
+  background-color: red;
+}
+
+.Edit {
+  width: 90px;
+}
+
+.Update-progress {
+  margin-left: 25px;
+  margin-top: 12px;
+}
+
+.Book-title {
+  margin-right: 12px;
+}
+
+.Author-name {
+  margin-left: 12px;
+}
+
+.strong {
+  font-weight: bold;
+}

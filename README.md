@@ -8,6 +8,7 @@
 - CSS
 - JavaScript
 - React
+- redux
 
 ## Live Demo (if available)
 
