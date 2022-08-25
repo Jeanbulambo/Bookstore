@@ -1,30 +1,19 @@
-import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Book from './components/Books';
-import Category from './components/Category';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Nav from './components/Navbar';
+import Categories from './components/Category';
+import Books from './components/DisplayBooks';
+import './styles/style.css';
 
-const App = () => {
-  const book = [
-    {
-      id: '1',
-      title: 'The Hunter',
-      author: ' Jean',
-    },
-    {
-      id: '2',
-      title: 'The Hunter',
-      author: 'Jean',
-    },
-  ];
+function App() {
   return (
-    <div className="App">
-      <Navbar />
+    <Router>
+      <Nav />
       <Routes>
-        <Route path="/" element={<Book items={book} />} />
-        <Route path="/Category" element={<Category />} />
+        <Route path="/" element={<Books />} />
+        <Route path="/categories" element={<Categories />} />
       </Routes>
-    </div>
+    </Router>
   );
-};
+}
 
 export default App;
