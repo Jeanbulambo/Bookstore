@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../redux/books/books';
+import { booksActions } from '../redux/Books/Books';
+import { sendBooksData } from '../redux/Books/Actions';
 
 const AddBook = () => {
-  const dispatch = useDispatch();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('action');
 
   const titleHandler = (e) => {
     setTitle(e.target.value);
@@ -15,30 +15,60 @@ const AddBook = () => {
   const authorHandler = (e) => {
     setAuthor(e.target.value);
   };
-  const submitBookToStore = (e) => {
+
+  const categoryHandler = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const dispatch = useDispatch();
+  const submitHandler = (e) => {
     e.preventDefault();
-    const newBook = {
-      title,
-      category: 'category',
-      author,
-      completed: 0,
-      chapter: 0,
-      id: uuidv4(),
-    };
-    e.target.reset();
-    dispatch(addBook(newBook));
+    if (title.length > 2 && author.length > 2) {
+      const newBook = {
+        id: Math.random().toString(),
+        title,
+        author,
+        category,
+      };
+      dispatch(sendBooksData(newBook));
+      const key = newBook.id;
+      const obj = {};
+      obj[key] = [newBook];
+      dispatch(booksActions.addBook(obj));
+      setTitle('');
+      setAuthor('');
+      setCategory('action');
+    }
   };
 
   return (
-    <form onSubmit={submitBookToStore}>
-      <input type="text" onChange={titleHandler} placeholder="Book title" required />
-      <input type="text" onChange={authorHandler} placeholder="Book Author" required />
-      <select disabled>
-        <option value="category">Category</option>
-      </select>
-      <button type="submit">Add Book</button>
-    </form>
+    <div className="AddBook">
+      <h2>ADD NEW BOOK</h2>
+      <form onSubmit={submitHandler}>
+        <input
+          type="text"
+          placeholder="Book title"
+          onChange={titleHandler}
+          value={title}
+        />
+        <input
+          type="text"
+          placeholder="Author"
+          onChange={authorHandler}
+          value={author}
+        />
+        <select
+          value={category}
+          onChange={categoryHandler}
+          className="select-category"
+        >
+          <option value="fiction">Life</option>
+          <option value="technology">Programming</option>
+          <option value="action">Select Category</option>
+        </select>
+        <button type="submit">Add Book</button>
+      </form>
+    </div>
   );
 };
-
 export default AddBook;

@@ -1,44 +1,39 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { removeBook } from '../redux/books/books';
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBooksData } from '../redux/Books/Actions';
+import Book from './Book';
+import AddBook from './Form';
 
-const Books = (prop) => {
-  const {
-    title, chapter, category, id, completed, author,
-  } = prop;
-
+const Books = () => {
   const dispatch = useDispatch();
+  const books = useSelector((state) => state.books.books);
+  useEffect(() => {
+    dispatch(fetchBooksData());
+  }, [dispatch]);
 
-  const removeHandler = () => {
-    dispatch(removeBook(id));
-  };
+  const bookList = [];
+
+  for (const key in books) {
+    bookList.push(
+      <Book
+        key={key}
+        id={key}
+        author={books[key][0].author}
+        title={books[key][0].title}
+        category={books[key][0].category}
+      />,
+    );
+  }
 
   return (
-    <div className="displaying-container">
-      <span className="setdisplaying">
-        <span className="strong">Book Title : </span>
-        {category}
-      </span>
-      <span className="Book">{title}</span>
-      <span className="Author-name">
-        <span className="strong">Author Name : </span>
-        {author}
-      </span>
-      <div className="books-buttons">
-        <button className="Comments" type="button">Comments</button>
-        <button classN ame="Remove" onClick={removeHandler} type="button">Remove</button>
-        <button className="Edit" type="button">Edit</button>
+    <main>
+      <div className="container">
+        {bookList}
+        <AddBook />
       </div>
-      <div>
-        <span>{completed}</span>
-      </div>
-      <div>
-        <span className="Current-Chapter">Current Chapter</span>
-        <span>{chapter}</span>
-        <button className="Update-progress" type="button">Update progress</button>
-      </div>
-    </div>
+    </main>
   );
 };
-
 export default Books;

@@ -1,18 +1,18 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Nav from './components/Navbar';
+import { Route, Routes } from 'react-router-dom';
+import Books from './components/Books';
 import Categories from './components/Category';
-import Books from './components/DisplayBooks';
-import './styles/style.css';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <Router>
-      <Nav />
+    <>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Books />} />
         <Route path="/categories" element={<Categories />} />
+        <Route path="/" element={<Books />} />
       </Routes>
-    </Router>
+    </>
+
   );
 }
 

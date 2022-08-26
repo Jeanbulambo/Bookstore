@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import booksReducer from './books/books';
-import CategoryReducer from './categories/categories';
+import books from './Books/Books';
+import categories from './categories/Categories';
 
 const store = configureStore({
   reducer: {
-    books: booksReducer,
-    categories: CategoryReducer,
+    books: books.reducer,
+    categories: categories.reducer,
   },
 });
 
