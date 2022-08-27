@@ -1,74 +1,67 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { booksActions } from '../redux/Books/Books';
-import { sendBooksData } from '../redux/Books/Actions';
+import { useState } from 'react';
+import { addBookThunk } from '../redux/books/books';
 
-const AddBook = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [category, setCategory] = useState('action');
-
-  const titleHandler = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const authorHandler = (e) => {
-    setAuthor(e.target.value);
-  };
-
-  const categoryHandler = (e) => {
-    setCategory(e.target.value);
-  };
-
+const Form = () => {
+  const [bookInfo, setBookInfo] = useState({ title: '', author: '', category: '' });
   const dispatch = useDispatch();
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (title.length > 2 && author.length > 2) {
-      const newBook = {
-        id: Math.random().toString(),
-        title,
-        author,
-        category,
-      };
-      dispatch(sendBooksData(newBook));
-      const key = newBook.id;
-      const obj = {};
-      obj[key] = [newBook];
-      dispatch(booksActions.addBook(obj));
-      setTitle('');
-      setAuthor('');
-      setCategory('action');
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    // eslint-disable-next-line no-param-reassign
+    event.target.previousElementSibling.value = '';
+    // eslint-disable-next-line no-param-reassign
+    event.target.previousElementSibling.previousElementSibling.value = '';
+    if (bookInfo.title && bookInfo.author && bookInfo.category) {
+      dispatch(addBookThunk(bookInfo));
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('Please fill all fields');
     }
   };
 
+  const handleChange = (event) => {
+    setBookInfo({
+      ...bookInfo,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   return (
-    <div className="AddBook">
-      <h2>ADD NEW BOOK</h2>
-      <form onSubmit={submitHandler}>
+    <form className="form">
+      <span>ADD NEW BOOK</span>
+      <div className="inner--form">
         <input
           type="text"
-          placeholder="Book title"
-          onChange={titleHandler}
-          value={title}
+          name="title"
+          placeholder="Book Title"
+          className="title"
+          onChange={handleChange}
         />
         <input
           type="text"
+          name="author"
           placeholder="Author"
-          onChange={authorHandler}
-          value={author}
+          className="author"
+          onChange={handleChange}
         />
-        <select
-          value={category}
-          onChange={categoryHandler}
-          className="select-category"
-        >
-          <option value="fiction">Life</option>
-          <option value="technology">Programming</option>
-          <option value="action">Select Category</option>
+        <select value={bookInfo.category} onChange={handleChange} name="category" className="dropdown">
+          <option value="History">History</option>
+          <option value="Romance">Romance</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Science">Science</option>
+          <option value="Technology">Technology</option>
         </select>
-        <button type="submit">Add Book</button>
-      </form>
-    </div>
+
+        <input
+          type="submit"
+          value="Submit"
+          className="submit"
+          onClick={handleClick}
+        />
+      </div>
+    </form>
   );
 };
-export default AddBook;
+
+export default Form;
