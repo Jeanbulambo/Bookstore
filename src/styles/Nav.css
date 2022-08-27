@@ -7,8 +7,7 @@ ul {
 
 ul li {
   background-color: lightgreen;
-  border: 2px solid black;
-  width: 110px;
+  width: 140px;
   text-align: center;
   height: 20px;
   list-style: none;
