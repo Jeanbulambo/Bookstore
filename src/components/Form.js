@@ -1,44 +1,67 @@
-import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../redux/books/books';
+import { useState } from 'react';
+import { addBookThunk } from '../redux/books/books';
 
-const AddBook = () => {
+const Form = () => {
+  const [bookInfo, setBookInfo] = useState({ title: '', author: '', category: '' });
   const dispatch = useDispatch();
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
 
-  const titleHandler = (e) => {
-    setTitle(e.target.value);
+  const handleClick = (event) => {
+    event.preventDefault();
+    // eslint-disable-next-line no-param-reassign
+    event.target.previousElementSibling.value = '';
+    // eslint-disable-next-line no-param-reassign
+    event.target.previousElementSibling.previousElementSibling.value = '';
+    if (bookInfo.title && bookInfo.author && bookInfo.category) {
+      dispatch(addBookThunk(bookInfo));
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('Please fill all fields');
+    }
   };
 
-  const authorHandler = (e) => {
-    setAuthor(e.target.value);
-  };
-  const submitBookToStore = (e) => {
-    e.preventDefault();
-    const newBook = {
-      title,
-      category: 'category',
-      author,
-      completed: 0,
-      chapter: 0,
-      id: uuidv4(),
-    };
-    e.target.reset();
-    dispatch(addBook(newBook));
+  const handleChange = (event) => {
+    setBookInfo({
+      ...bookInfo,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
-    <form onSubmit={submitBookToStore}>
-      <input type="text" onChange={titleHandler} placeholder="Book title" required />
-      <input type="text" onChange={authorHandler} placeholder="Book Author" required />
-      <select disabled>
-        <option value="category">Category</option>
-      </select>
-      <button type="submit">Add Book</button>
+    <form className="form">
+      <span>ADD NEW BOOK</span>
+      <div className="inner--form">
+        <input
+          type="text"
+          name="title"
+          placeholder="Book Title"
+          className="title"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="author"
+          placeholder="Author"
+          className="author"
+          onChange={handleChange}
+        />
+        <select value={bookInfo.category} onChange={handleChange} name="category" className="dropdown">
+          <option value="History">History</option>
+          <option value="Romance">Romance</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Science">Science</option>
+          <option value="Technology">Technology</option>
+        </select>
+
+        <input
+          type="submit"
+          value="Submit"
+          className="submit"
+          onClick={handleClick}
+        />
+      </div>
     </form>
   );
 };
 
-export default AddBook;
+export default Form;

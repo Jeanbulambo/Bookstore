@@ -1,17 +1,17 @@
-export const CHECK_STATUS = 'bookstore/categories/CHECK_STATUS';
+const CHECK_STATUS = 'bookstore-with-react/categories/CHECK_STATUS';
 
-export const checkStatus = () => (
-  {
-    type: CHECK_STATUS,
-  }
-);
-const initState = [];
-const CategoryReducer = (state = initState, action = {}) => {
+export const CheckStatus = () => ({
+  type: CHECK_STATUS,
+  payload: 'under construction',
+});
+
+const categoriesReducer = (state = [], action) => {
   switch (action.type) {
     case CHECK_STATUS:
-      return 'under construction';
-    default: return state;
+      return action.payload;
+    default:
+      return state;
   }
 };
 
-export default CategoryReducer;
+export default categoriesReducer;
