@@ -3,17 +3,10 @@ import '../styles/Nav.css';
 
 const Navbar = () => (
   <nav className="navbar">
-    <h1> BookStore </h1>
-
+    <h1> BookStore CMS</h1>
     <div className="links">
-      <ul>
-        <li>
-          <Link to="/" className="books">BOOKS</Link>
-        </li>
-        <li>
-          <Link to="/Category" className="categories">CATEGORIES</Link>
-        </li>
-      </ul>
+      <Link to="/" className="books">BOOKS</Link>
+      <Link to="/Category" className="categories">CATEGORIES</Link>
     </div>
   </nav>
 );

@@ -55,7 +55,7 @@ const Form = () => {
 
         <input
           type="submit"
-          value="Submit"
+          value="ADD BOOK"
           className="submit"
           onClick={handleClick}
         />
