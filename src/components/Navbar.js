@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
-import '../styles/Nav.css';
+import userimage from '../assets/userimage.png';
 
 const Navbar = () => (
   <nav className="navbar">
-    <h1> BookStore </h1>
-
+    <h1> BookStore CMS</h1>
     <div className="links">
-      <ul>
-        <li>
-          <Link to="/" className="books">BOOKS</Link>
-        </li>
-        <li>
-          <Link to="/Category" className="categories">CATEGORIES</Link>
-        </li>
-      </ul>
+      <Link to="/" className="books">BOOKS</Link>
+      <Link to="/Category" className="categories">CATEGORIES</Link>
+    </div>
+    <div className="user">
+      <img className="user--img" src={userimage} alt="user login" />
     </div>
   </nav>
 );
