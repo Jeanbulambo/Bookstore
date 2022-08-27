@@ -51,7 +51,7 @@ const Book = () => {
         <CircularProgressbar className="loader" value={Math.floor(Math.random() * 100)} text={`${Math.floor(Math.random() * 100)}%`} />
       </div>
       <div className="chapter">
-        <h4>Current Chapter</h4>
+        <h4>CURRENT CHAPTER</h4>
         <h5>Chapter 02</h5>
         <button className="chapter--button" type="button">UPDATE PROGRESS</button>
       </div>

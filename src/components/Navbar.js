@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../styles/Nav.css';
+import userimage from '../assets/userimage.png';
 
 const Navbar = () => (
   <nav className="navbar">
@@ -7,6 +7,9 @@ const Navbar = () => (
     <div className="links">
       <Link to="/" className="books">BOOKS</Link>
       <Link to="/Category" className="categories">CATEGORIES</Link>
+    </div>
+    <div className="user">
+      <img className="user--img" src={userimage} alt="user login" />
     </div>
   </nav>
 );
